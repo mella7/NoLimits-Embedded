@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nolimits
+  namespace: nolimits
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nolimits
+  template:
+    metadata:
+      labels:
+        app: nolimits
+    spec:
+      containers:
+        - name: nolimits
+          image: docker.io/mella7/nolimits:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
