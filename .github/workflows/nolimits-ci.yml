@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 env:
   DOCKER_IMAGE: mella7/nolimits-embedded
   AWS_REGION: eu-north-1
@@ -83,10 +86,13 @@ jobs:
       # Update kubernetes manifest with new image tag
       - name: Update Kubernetes Manifest
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sed -i "s|image: docker.io/mella7/nolimits-embedded:.*|image: docker.io/mella7/nolimits-embedded:${{ github.sha }}|g" kubernetes-manifest/deployment.yaml
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/mella7/NoLimits-Embedded.git
           git add kubernetes-manifest/deployment.yaml
           git commit -m "update image tag to ${{ github.sha }}" || echo "No changes to commit"
           git push
