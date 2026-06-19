@@ -10,8 +10,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: mella7.me
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix

@@ -1,23 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nolimits
+  name: nolimits-embedded
   namespace: nolimits
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nolimits
+      app: nolimits-embedded
   template:
     metadata:
       labels:
-        app: nolimits
+        app: nolimits-embedded
     spec:
       containers:
-        - name: nolimits
-          image: docker.io/mella7/nolimits:latest
+        - name: nolimits-embedded
+          image: docker.io/mella7/nolimits-embedded:latest
           ports:
-            - containerPort: 3000
-          env:
-            - name: NODE_ENV
-              value: "production"
+            - containerPort: 80
