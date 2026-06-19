@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: nolimits-embedded
-          image: docker.io/mella7/nolimits-embedded:latest
+          image: docker.io/mella7/nolimits-embedded:a0d8fe9df6645fbd17adb9c45204605f8dc438bc
           ports:
             - containerPort: 80
